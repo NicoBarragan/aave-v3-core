@@ -10,6 +10,13 @@ contract MockPool {
   address internal _addressesProvider;
   address[] internal _reserveList;
 
+  uint256 public totalCollateralBase;
+  uint256 public totalDebtBase;
+  uint256 public availableBorrowsBase;
+  uint256 public currentLiquidationThreshold;
+  uint256 public ltv;
+  uint256 public healthFactor;
+
   function initialize(address provider) external {
     _addressesProvider = provider;
   }
@@ -25,6 +32,38 @@ contract MockPool {
     }
     return reservesList;
   }
+
+  function getAddressesProvider() external view returns (address) {
+    return _addressesProvider;
+  }
+
+  function setUserAccountData(
+  uint256 _totalCollateralBase,
+  uint256 _totalDebtBase,
+  uint256 _availableBorrowsBase,
+  uint256 _currentLiquidationThreshold,
+  uint256 _ltv,
+  uint256 _healthFactor) external {
+    totalCollateralBase = _totalCollateralBase,
+    totalDebtBase = _totalDebtBase,
+    availableBorrowsBase = _availableBorrowsBase,
+    currentLiquidationThreshold = _currentLiquidationThreshold,
+    ltv = _ltv,
+    healthFactor = _healthFactor
+    }
+
+    function getUserAccountData(address user)
+    external
+    view
+    returns (
+      uint256 totalCollateralBase,
+      uint256 totalDebtBase,
+      uint256 availableBorrowsBase,
+      uint256 currentLiquidationThreshold,
+      uint256 ltv,
+      uint256 healthFactor
+    )
+  {}
 }
 
 import {Pool} from '../../protocol/pool/Pool.sol';
